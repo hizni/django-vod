@@ -6,3 +6,5 @@ vod_webapp/db\.sqlite3
 vod_webapp/bower_components/bootstrap/
 
 vod_webapp/bower_components/jquery/
+
+\.DS_Store
