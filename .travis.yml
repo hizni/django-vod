@@ -5,7 +5,7 @@ python:
 env:
   - DJANGO=1.8.3
 install:
-- pip install -r /vod_webapp/requirements.txt
+- pip install -r vod_webapp/requirements.txt
 - pip install -q Django==$DJANGO
 script:
-  - python manage.py test /vod_webapp/vod_webapp.tests
+  - python manage.py test vod_webapp/vod_webapp.tests
