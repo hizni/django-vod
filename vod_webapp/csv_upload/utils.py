@@ -39,6 +39,4 @@ def validate_file_extension(value, required_extensions):
 
     return False
 
-    # if value.endswith(extension):
-    #    return True
-    # return False
+

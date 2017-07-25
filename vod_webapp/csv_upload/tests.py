@@ -16,7 +16,7 @@ class TestCalls(TestCase):
         self.assertTrue(utils.csv_validate_uploaded_fields(fields_read_in_unordered, required_fields))
 
     def test_csv_validate_uploaded_fields_incorrect(self):
-        field_read_in_wrong =  ('second_value', 'first_value', 'foo')
+        field_read_in_wrong = ('second_value', 'first_value', 'foo')
         required_fields = ('first_value', 'second_value', 'third_value')
 
         self.assertFalse(utils.csv_validate_uploaded_fields(field_read_in_wrong, required_fields))
