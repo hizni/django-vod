@@ -8,4 +8,6 @@ install:
 - pip install -r vod_webapp/requirements.txt
 - pip install -q Django==$DJANGO
 script:
+  - python vod_webapp/manage.py makemigrations
+  - python vod_webapp/manage.py migrate
   - python vod_webapp/manage.py test vod_webapp.tests
