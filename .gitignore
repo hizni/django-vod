@@ -10,3 +10,5 @@ vod_webapp/bower_components/jquery/
 \.DS_Store
 
 \.idea/
+
+vod_webapp/csv_upload/migrations/

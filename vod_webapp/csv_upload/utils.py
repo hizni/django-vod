@@ -2,7 +2,7 @@ import csv
 
 
 # handles uploaded file
-def handle_uploaded_file(uploaded_file, valid_fields_method, record_creation_function):
+def handle_uploaded_file(uploaded_file, expected_fields, record_creation_function):
     uploaded_file.seek(0)
 
     # important - csv file must be encoded in UTF-8
@@ -12,7 +12,7 @@ def handle_uploaded_file(uploaded_file, valid_fields_method, record_creation_fun
     # print sniffdialect.fieldnames
     data = csv.DictReader(uploaded_file, dialect=sniffdialect)
 
-    if not valid_fields_method(data.fieldnames):
+    if not csv_validate_uploaded_fields(data.fieldnames, expected_fields):
         return False, -1
 
     result, rows_error = record_creation_function(data)
@@ -33,8 +33,10 @@ def csv_validate_uploaded_fields(field_names, required_fields):
 # validates the extension of a given file
 def validate_file_extension(value, required_extensions):
 
-    if value in required_extensions:
-        return True
+    for extension in required_extensions:
+        if value.endswith(extension):
+            return True
+
     return False
 
     # if value.endswith(extension):

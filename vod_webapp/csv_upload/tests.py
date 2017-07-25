@@ -22,7 +22,7 @@ class TestCalls(TestCase):
         self.assertFalse(utils.csv_validate_uploaded_fields(field_read_in_wrong, required_fields))
 
     def test_validate_file_extension(self):
-        read_in_extension = 'csv'
-        expected = ('csv','txt')
+        read_in_extension = 'test.csv'
+        expected = ('csv', 'txt')
 
         self.assertTrue(utils.validate_file_extension(read_in_extension, expected))

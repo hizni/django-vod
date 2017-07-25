@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container">
+        <h3>Demographics CSV upload</h3>
+
+        <div class="col-lg-6 col-sm-6 col-12">
+            <h4>Select file to upload...</h4>
+            <form action="/vod/upload_demog" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-success" style="float: right">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                        <span class="btn btn-primary"> Browse&hellip; <input type="file" name="demog_file" style="display: none;"></span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>
+            </form>
+        </div>
+
+        <!-- Render table with Upload data -->
+        <div class="col-lg-6 col-sm-6 col-12">
+        <h4> Previous upload audit </h4>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Outcome</th>
+                <th>Context</th>
+                <th>Created On</th>
+                <th>Created By</th>
+              </tr>
+            </thead>
+            <tbody>
+                <!-- sets the rendering of the row based on the outcome datapoint set in the Upload model -->
+                {% for item in documents %}
+                    {% if item.outcome == 'SUCCESS' %}
+                        <tr class="success">
+                    {% elif item.outcome == 'ERRORED' %}
+                        <tr class="info">
+                    {% elif item.outcome == 'FILE_ERROR' %}
+                        <tr class="warning">
+                    {% elif item.outcome == 'UNEXPECTED' %}
+                        <tr class="danger">
+                    {% endif %}
+
+                        <td>{{ item.outcome }}</td>
+                        <td>{{ item.context }}</td>
+                        <td>{{ item.created_on }}</td>
+                        <td>{{ item.created_by }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- render pagination bar -->
+        {% if documents.has_other_pages %}
+            <ul class="pagination">
+            {% if documents.has_previous %}
+                <li><a href="?page={{ documents.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in documents.paginator.page_range %}
+                {% if users.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if documents.has_next %}
+                <li><a href="?page={{ documents.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+            </ul>
+        {% endif %}
+        </div>
+    </div>    <!-- end of container -->
+
+    <script>
+        $(function() {
+
+          // We can attach the `fileselect` event to all file inputs on the page
+          $(document).on('change', ':file', function() {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+          });
+
+          // We can watch for our custom `fileselect` event like this
+          $(document).ready( function() {
+              $(':file').on('fileselect', function(event, numFiles, label) {
+
+                  var input = $(this).parents('.input-group').find(':text'),
+                      log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                  if( input.length ) {
+                      input.val(log);
+                  } else {
+                      if( log ) alert(log);
+                  }
+
+              });
+          });
+
+        });
+</script>
+{% endblock %}
