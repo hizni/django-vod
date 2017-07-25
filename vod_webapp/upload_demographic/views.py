@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from upload_demographic.forms import UploadForm
 from csv_upload.models import Upload
 from upload_demographic.models import StoredData
-from csv_upload.utils import validate_file_extension, handle_uploaded_file, csv_validate_uploaded_fields
+from csv_upload.utils import validate_file_extension, handle_uploaded_file
 
 
 def demog_upload_view(request):
