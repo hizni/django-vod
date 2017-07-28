@@ -3,9 +3,9 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from upload_demographic.forms import UploadForm
-from csv_upload.models import Upload
+from upload.models import Audit
 from upload_demographic.models import StoredData
-from csv_upload.utils import validate_file_extension, handle_uploaded_file
+from upload.utils import validate_file_extension, handle_uploaded_file
 
 
 def demog_upload_view(request):
@@ -19,7 +19,7 @@ def demog_upload_view(request):
         form = UploadForm(request.POST, request.FILES)
 
         # create upload audit record. need to pass in user credentials
-        upload = Upload(uploaded_file='foo', uploaded_by='foo', created_by='foo')
+        upload = Audit(uploaded_file='foo', uploaded_by='foo', created_by='foo')
 
         if form.is_valid():
             # gather submitted file information
@@ -53,7 +53,7 @@ def demog_upload_view(request):
         form = UploadForm()  # A empty, unbound form
 
     # Load a paginated list of upload objects. Making use of Pagination library
-    documents_list = Upload.objects.all()
+    documents_list = Audit.objects.all()
     page = request.GET.get('page', 1)
 
     paginator = Paginator(documents_list, pagination_size)

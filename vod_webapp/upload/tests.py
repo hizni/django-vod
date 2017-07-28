@@ -1,5 +1,5 @@
 from django.test import TestCase
-from csv_upload import utils
+from upload import utils
 
 
 class TestCalls(TestCase):
