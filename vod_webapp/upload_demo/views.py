@@ -2,13 +2,13 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from upload_demographic.forms import UploadForm
+from upload_demo.forms import UploadForm
 from upload.models import Audit
-from upload_demographic.models import StoredData
+from upload_demo.models import StoredData
 from upload.utils import validate_file_extension, handle_uploaded_file
 
 
-def demog_upload_view(request):
+def demo_upload_view(request):
 
     expected_extensions = ('csv')
     required_fields = ('first_name', 'last_name', 'unique_id')
@@ -67,7 +67,7 @@ def demog_upload_view(request):
     # Render list page with the documents and the form
     return render(
         request,
-        'upload_demog.html',
+        'upload_demo.html',
         {'documents': documents, 'form': form}
     )
 
