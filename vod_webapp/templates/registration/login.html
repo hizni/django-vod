@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Django Simple Login example</h1>
+
+    <div class="container">
+
+        {% if user.is_authenticated %}
+          Hi {{ user.username }} welcome back!
+          <a href="{% url 'logout' %}">logout</a>
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}
+
