@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'upload',
     'upload_demo',
+    'vod_webapp',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'vod_webapp.urls'
+ROOT_URLCONF = 'vod_systems.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'vod_webapp.wsgi.application'
+WSGI_APPLICATION = 'vod_systems.wsgi.application'
 
 
 # Database

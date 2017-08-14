@@ -1,18 +1,6 @@
-from django.conf.urls import include, url
-from django.contrib import admin
-
-from django.contrib.auth import views as auth_views
-
+from django.conf.urls import url
 from vod_webapp import views
 
-
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^login/', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
-
-    url(r'^vod/', include('upload_demo.urls')),
-    url(r'^not$', views.not_implemented, name='not-imp'),
-
-    url(r'^$', views.landing, name='index'),
+    url(r'^login', views.login, name='vodLogin'),
 ]
